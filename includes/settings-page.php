@@ -47,6 +47,12 @@ if( !function_exists( 'add_action' ) ) {
 <?php screen_icon('options-general'); ?>
 <h2><?php _e( 'ScrollTo Top', 'scrollto-top' ); ?></h2>
 <br class="clear" />
+<?php if( $error = $this->errors->get_error_message( 'scrollto-top_nodir' ) ) : ?>
+<div id="message" class="error fade"><p><?php echo $error; ?></p></div>
+<?php endif; ?>
+<?php if( $error = $this->errors->get_error_message( 'scrollto-top_renamedir' ) ) : ?>
+<div id="message" class="error fade"><p><?php echo $error; ?></p></div>
+<?php endif; ?>
 <?php if( $file_error_size ) : ?>
 <div id="message" class="error fade"><p><?php _e( 'There was an error while uploading your image. The maximum width and height allowed for icons is 100x100px. Please try again.', 'scrollto-top' ); ?></p></div>
 <?php endif; ?>
@@ -84,7 +90,7 @@ if( !function_exists( 'add_action' ) ) {
 <input type="text" name="location_y_amt" value="<?php print $this->options['location_y_amt']; ?>" size="5" />px
 </td>
 </tr><tr>
-<th scope="row"><?php _e( 'Enable document scroll event?', 'scrollto-top' ); ?></th>
+<th scope="row"><?php _e( 'Hide image until needed?', 'scrollto-top' ); ?></th>
 <td>
 <label><input type="radio" <?php if(!isset($this->options['enable_scroll_event']) || $this->options['enable_scroll_event']) print 'checked="checked" '; ?>value="1" name="enable_scroll_event" /> <?php _e( 'Yes', 'scrollto-top' ); ?></label>
 <label><input type="radio" <?php if(isset($this->options['enable_scroll_event']) && !$this->options['enable_scroll_event']) print 'checked="checked" '; ?>value="0" name="enable_scroll_event" /><?php _e( 'No', 'scrollto-top' ); ?></label>
@@ -94,6 +100,9 @@ if( !function_exists( 'add_action' ) ) {
 </table>
 <h3><?php _e( 'Select an icon', 'scrollto-top' ); ?></h3>
 <p><?php printf( __( 'To remove pictures, navigate to %s and remove them manually.', 'scrollto-top' ), '<code>' . STT_IMAGES_DIR . '</code>' ); ?></p>
+<?php if( empty( $image_array ) ) : ?>
+<p><?php _e( 'There are no images in the image directory. Please upload some.', 'scrollto-top' ); ?></p>
+<?php else : ?>
 <ul id="stt-image-list">
 <?php foreach($image_array as $image) : ?>
 <li>
@@ -102,6 +111,7 @@ if( !function_exists( 'add_action' ) ) {
 </li>
 <?php endforeach; ?>
 </ul>
+<?php endif; ?>
 <h3><?php _e( 'Upload your own icon', 'scrollto-top' ); ?></h3>
 <table cellspacing="2" cellpadding="0" border="0">
 <tr>

@@ -3,7 +3,7 @@
 Plugin Name: ScrollTo Top
 Plugin URI: http://www.danielimhoff.com/wordpress-plugins/scrollto-top/
 Description: Uses the jQuery plugin ScrollTo by Ariel Flesler to smoothly scroll the user's browser to the top of the page when the user clicks the unobtrusive go-to-top image.
-Version: 1.0
+Version: 1.0.1
 Author: Daniel Imhoff
 Author URI: http://www.danielimhoff.com/
 License: GPL2
@@ -47,7 +47,7 @@ if ( !defined( 'WP_PLUGIN_DIR' ) ) {
    define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
 }
 
-define( 'STT_VERSION', '1.0' );
+define( 'STT_VERSION', '1.0.1' );
 
 // Did some nub rename the folder? 
 define( 'STT_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -85,6 +85,13 @@ if( !class_exists( 'ScrollToTop' ) ) {
        * @since 1.0
        */
       public $options = array();
+
+      /**
+       * Array of ScrollTo Top Errors.
+       *
+       * @since 1.1
+       */
+      public $errors = array();
 
       /**
        * Array of acceptable file types for images.
@@ -129,14 +136,21 @@ if( !class_exists( 'ScrollToTop' ) ) {
             ) );
          }
 
+         $this->errors = new WP_Error();
+
          if( !is_dir( STT_IMAGES_DIR ) ) {
-            mkdir( STT_IMAGES_DIR, 0755 );
+            if(! @mkdir( STT_IMAGES_DIR, 0755 ) ) {
+               $this->errors->add( 'scrollto-top_nodir', __( 'ScrollTo Top cannot create the images directory in /wp-content!', 'scrollto-top' ) );
+            }
          }
 
          if( $handle = opendir( STT_PLUGIN_DIR . '/img/' ) ) {
             while( false !== ( $file = readdir( $handle ) ) ) {
-               if( in_array( end( explode( '.', $file ) ), $this->allowed_fileext ) ) {
-                  rename( STT_PLUGIN_DIR . '/img/' . $file, STT_IMAGES_DIR . '/' . $file );
+               if( in_array( strtolower( end( explode( '.', $file ) ) ), $this->allowed_fileext ) ) {
+                  if(! @rename( STT_PLUGIN_DIR . '/img/' . $file, STT_IMAGES_DIR . '/' . $file ) ) {
+                     $this->errors->add( 'scrollto-top_renamedir', __( 'ScrollTo Top cannot move the images into the images directory in /wp-content!', 'scrollto-top' ) );
+                     break;
+                  }
                }
             }
          }
@@ -169,7 +183,7 @@ if( !class_exists( 'ScrollToTop' ) ) {
             wp_enqueue_style( 'scrollto-top', STT_PLUGIN_URL . '/css/scrollto-top-css.php' );
             wp_enqueue_script( 'jquery' );
             wp_enqueue_script( 'scrollTo', STT_PLUGIN_URL . '/js/jquery.scrollTo-1.4.2-min.js', array('jquery'), '1.4.2' );
-            wp_enqueue_script( 'scrollto-top', STT_PLUGIN_URL . '/js/scrollto-top-js.php', array('jquery', 'scrollTo'), STT_VERSION );
+            wp_enqueue_script( 'scrollto-top', STT_PLUGIN_URL . '/js/scrollto-top' . ( $this->options['enable_scroll_event'] ? '-se' : '') . '.js', array('jquery', 'scrollTo'), STT_VERSION );
          }
 
          add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
@@ -239,6 +253,8 @@ if( !class_exists( 'ScrollToTop' ) ) {
                }
             }
          }
+
+         $image_array = array();
 
          if( $handle = opendir( STT_IMAGES_DIR ) ) {
             while( false !== ( $file = readdir( $handle ) ) ) {
