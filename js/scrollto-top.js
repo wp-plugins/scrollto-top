@@ -1,3 +1,4 @@
+jQuery.noConflict();
 jQuery(function() {
    var isTransitioned = true;
    var transparent = 0;
