@@ -6,6 +6,7 @@ header("Content-Type: text/css");
 ?>
 #gototop {
    position:fixed;
+   z-index:5000;
    <?php print $options['location_y'] . ':' . $options['location_y_amt']; ?>px;
    <?php print $options['location_x'] . ':' . $options['location_x_amt']; ?>px;
    background:url("<?php print STT_IMAGES_URL . '/' . $options['image']; ?>") no-repeat top left;
