@@ -3,7 +3,7 @@
 Plugin Name: ScrollTo Top
 Plugin URI: http://www.danielimhoff.com/wordpress-plugins/scrollto-top/
 Description: Uses the jQuery plugin ScrollTo by Ariel Flesler to smoothly scroll the user's browser to the top of the page when the user clicks the unobtrusive go-to-top image.
-Version: 1.0.3
+Version: 1.1
 Author: Daniel Imhoff
 Author URI: http://www.danielimhoff.com/
 License: GPL2
@@ -47,7 +47,7 @@ if ( !defined( 'WP_PLUGIN_DIR' ) ) {
    define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
 }
 
-define( 'STT_VERSION', '1.0.3' );
+define( 'STT_VERSION', '1.1' );
 
 // Did some nub rename the folder? 
 define( 'STT_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -115,23 +115,30 @@ if( !class_exists( 'ScrollToTop' ) ) {
        */
       public function __construct()
       {
-         // Update version number if necessary.
+         $default_options = array(
+            'enable_scroll_event' => 0,
+            'scroll_speed' => 750,
+            'image' => 'dwieeb_arrow_darker.png',
+            'image_width' => 30,
+            'image_height' => 30,
+            'location_y' => 'top',
+            'location_x' => 'right',
+            'location_y_amt' => 40,
+            'location_x_amt' => 40,
+         );
+
+         // If there was an update
          if( version_compare( get_option( 'scrollto-top_version' ), STT_VERSION, '<' ) ) {
             update_option( 'scrollto-top_version', STT_VERSION );
-         }
 
-         // Add default options if STT options do not exist in the database
-         if( !$this->options = get_option( 'scrollto-top_options' ) ) {
-            add_option( 'scrollto-top_options', $this->options = array(
-               'enable_scroll_event' => 0,
-               'image' => 'dwieeb_arrow_darker.png',
-               'image_width' => 30,
-               'image_height' => 30,
-               'location_y' => 'top',
-               'location_x' => 'right',
-               'location_y_amt' => 20,
-               'location_x_amt' => 20,
-            ) );
+            // Add default options if STT options do not exist in the database
+            if( !$this->options = get_option( 'scrollto-top_options' ) ) {
+               add_option( 'scrollto-top_options', $this->options = $default_options );
+            } else {
+               update_option( 'scrollto-top_options', $this->options = wp_parse_args( $this->options, $default_options ) );
+            }
+         } else {
+            $this->options = get_option( 'scrollto-top_options' );
          }
 
          $this->errors = new WP_Error();
@@ -181,7 +188,7 @@ if( !class_exists( 'ScrollToTop' ) ) {
             wp_enqueue_style( 'scrollto-top', STT_PLUGIN_URL . '/css/scrollto-top-css.php' );
             wp_enqueue_script( 'jquery' );
             wp_enqueue_script( 'scrollTo', STT_PLUGIN_URL . '/js/jquery.scrollTo-1.4.2-min.js', array('jquery'), '1.4.2' );
-            wp_enqueue_script( 'scrollto-top', STT_PLUGIN_URL . '/js/scrollto-top' . ( $this->options['enable_scroll_event'] ? '-se' : '') . '.js', array('jquery', 'scrollTo'), STT_VERSION );
+            wp_enqueue_script( 'scrollto-top', STT_PLUGIN_URL . '/js/scrollto-top.js.php', array('jquery', 'scrollTo'), STT_VERSION );
          }
 
          add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
@@ -239,7 +246,7 @@ if( !class_exists( 'ScrollToTop' ) ) {
 
                list( $width, $height ) = getimagesize( $_FILES['icon_upload']['tmp_name'] );
 
-               if( $width > 100 || $height > 100 ) {
+               if( $width > 250 || $height > 250 ) {
                   $file_error_size = 1;
                   $file_error = 1;
                }
@@ -273,6 +280,7 @@ if( !class_exists( 'ScrollToTop' ) ) {
 
             $options = array(
                'enable_scroll_event' => ( intval( $_POST['enable_scroll_event'] ) < 0 ) ? 0 : intval( $_POST['enable_scroll_event'] ),
+               'scroll_speed' => $_POST['scroll_speed'],
                'image' => $_POST['image'],
                'image_width' => $width,
                'image_height' => $height,

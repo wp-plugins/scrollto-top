@@ -90,6 +90,12 @@ if( !function_exists( 'add_action' ) ) {
 <input type="text" name="location_y_amt" value="<?php print $this->options['location_y_amt']; ?>" size="5" />px
 </td>
 </tr><tr>
+<th scope="row"><?php _e( 'Speed of transition', 'scrollto-top' ); ?></th>
+<td>
+<input type="text" name="scroll_speed" value="<?php print $this->options['scroll_speed']; ?>" size="5" /> milliseconds
+<p><?php _e( 'After changing this value, remember to clear your browser\'s cache. (CTRL + F5).' ); ?></p>
+</td>
+</tr><tr>
 <th scope="row"><?php _e( 'Hide image until needed?', 'scrollto-top' ); ?></th>
 <td>
 <label><input type="radio" <?php if(!isset($this->options['enable_scroll_event']) || $this->options['enable_scroll_event']) print 'checked="checked" '; ?>value="1" name="enable_scroll_event" /> <?php _e( 'Yes', 'scrollto-top' ); ?></label>
