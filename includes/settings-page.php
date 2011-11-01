@@ -43,6 +43,21 @@ if( !function_exists( 'add_action' ) ) {
    text-align:center;
 }
 </style>
+<script type="text/javascript">
+function showhide_scroll_event_location_container() {
+  if(jQuery('input[name="enable_scroll_event"]:checked').val() == 1) {
+     jQuery('#scroll_event_location_container').fadeIn();
+  } else {
+     jQuery('#scroll_event_location_container').fadeOut();
+  }
+}
+
+jQuery(document).ready(function($) {
+   showhide_scroll_event_location_container();
+
+   $('input[name="enable_scroll_event"]').click(showhide_scroll_event_location_container);
+});
+</script>
 <div id="scrollto-top" class="wrap">
 <?php screen_icon('options-general'); ?>
 <h2><?php _e( 'ScrollTo Top', 'scrollto-top' ); ?></h2>
@@ -92,7 +107,7 @@ if( !function_exists( 'add_action' ) ) {
 </tr><tr>
 <th scope="row"><?php _e( 'Speed of transition', 'scrollto-top' ); ?></th>
 <td>
-<input type="text" name="scroll_speed" value="<?php print $this->options['scroll_speed']; ?>" size="5" /> milliseconds
+<input type="text" name="scroll_speed" value="<?php print $this->options['scroll_speed']; ?>" size="5" /> <?php _e( 'milliseconds' ); ?>
 <p><?php _e( 'After changing this value, remember to clear your browser\'s cache. (CTRL + F5).' ); ?></p>
 </td>
 </tr><tr>
@@ -101,6 +116,12 @@ if( !function_exists( 'add_action' ) ) {
 <label><input type="radio" <?php if(!isset($this->options['enable_scroll_event']) || $this->options['enable_scroll_event']) print 'checked="checked" '; ?>value="1" name="enable_scroll_event" /> <?php _e( 'Yes', 'scrollto-top' ); ?></label>
 <label><input type="radio" <?php if(isset($this->options['enable_scroll_event']) && !$this->options['enable_scroll_event']) print 'checked="checked" '; ?>value="0" name="enable_scroll_event" /><?php _e( 'No', 'scrollto-top' ); ?></label>
 <p><?php _e( 'If checked, then whenever the user scrolls down the page to a certain point, the go-to-top icon will appear. Yes: More style. No: Better preformance.', 'scrollto-top' ); ?></p>
+</td>
+</tr><tr id="scroll_event_location_container">
+<th scope="row"><?php _e( 'Fade image in/out when the top of the browser window is...', 'scrollto-top' ); ?></th>
+<td>
+<input type="text" name="scroll_event_location" value="<?php print $this->options['scroll_event_location']; ?>" size="5" /> <?php _e( 'pixels from the top of the website' ); ?>
+<p><?php _e( 'After changing this value, remember to clear your browser\'s cache. (CTRL + F5).' ); ?></p>
 </td>
 </tr>
 </table>

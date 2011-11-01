@@ -12,7 +12,7 @@ header('Content-Type: text/javascript');
    var fade = function() {
       if(isTransitioned) {
          isTransitioned = false;
-         if(1000 < $(document).scrollTop()) {
+         if(<?php print $ScrollToTop->options['scroll_event_location']; ?> < $(document).scrollTop()) {
             $("#gototop").show().fadeTo("slow", translucent, function() {
                isTransitioned = true;
             });
