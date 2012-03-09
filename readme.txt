@@ -14,6 +14,8 @@ This plugin will display an icon in a corner of the page that, when clicked, wil
 
 Please note* This plugin will not display the icon in many mobile browsers due to their complete lack of support for position:fixed;
 
+Looking for a ScrollTo Bottom plugin? Check out the [sister plugin](http://wordpress.org/extend/plugins/scrollto-bottom/).
+
 == Installation ==
 
 1. Upload `/scrollto-top/` to the `/wp-content/plugins/` directory.
