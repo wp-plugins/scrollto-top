@@ -3,7 +3,7 @@ Contributors: dwieeb
 Donate link: http://www.danielimhoff.com/donations/
 Tags: scrollto, scroll, go to top, top of page, dwieeb
 Requires at least: 3.0.0
-Tested up to: 3.2.1
+Tested up to: 3.3.1
 Stable tag: 1.1.1
 
 Uses the jQuery plugin ScrollTo by Ariel Flesler to smoothly scroll the user's browser to the top of the page when the user clicks the image.
