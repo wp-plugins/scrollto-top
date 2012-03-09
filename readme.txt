@@ -35,6 +35,9 @@ Looking for a ScrollTo Bottom plugin? Check out the [sister plugin](http://wordp
 = 1.1 =
 * Added option for scroll speed.
 
+= 1.0.3 =
+* Removed the icon on the login page.
+
 = 1.0.2 =
 * More compatibility. 
 
