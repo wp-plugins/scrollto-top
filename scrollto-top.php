@@ -3,7 +3,7 @@
 Plugin Name: ScrollTo Top
 Plugin URI: http://www.danielimhoff.com/wordpress-plugins/scrollto-top/
 Description: Uses the jQuery plugin ScrollTo by Ariel Flesler to smoothly scroll the user's browser to the top of the page when the user clicks the unobtrusive go-to-top image.
-Version: 1.1.1
+Version: 1.1.2
 Author: Daniel Imhoff
 Author URI: http://www.danielimhoff.com/
 License: GPL2
@@ -47,7 +47,7 @@ if ( !defined( 'WP_PLUGIN_DIR' ) ) {
    define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
 }
 
-define( 'STT_VERSION', '1.1.1' );
+define( 'STT_VERSION', '1.1.2' );
 
 // Did some nub rename the folder? 
 define( 'STT_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -117,6 +117,7 @@ if( !class_exists( 'ScrollToTop' ) ) {
       {
          $default_options = array(
             'enable_scroll_event' => 0,
+            'icon_container_selector' => 'body',
             'scroll_speed' => 750,
             'scroll_event_location' => 1000,
             'image' => 'dwieeb_arrow_darker.png',
@@ -280,6 +281,7 @@ if( !class_exists( 'ScrollToTop' ) ) {
             list( $width, $height ) = getimagesize( STT_IMAGES_DIR . '/' . $_POST['image'] );
 
             $options = array(
+               'icon_container_selector' => $_POST['icon_container_selector'],
                'enable_scroll_event' => ( intval( $_POST['enable_scroll_event'] ) < 0 ) ? 0 : intval( $_POST['enable_scroll_event'] ),
                'scroll_speed' => $_POST['scroll_speed'],
                'scroll_event_location' => $_POST['scroll_event_location'],

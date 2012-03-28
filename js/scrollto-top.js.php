@@ -27,7 +27,7 @@ header('Content-Type: text/javascript');
 <?php endif; ?>
 
    $(function() {
-      $("body").prepend('<a id="top"></a>\n<a href="#top" id="gototop" class="gototop">Top of page</a>');
+      $("<?php echo $ScrollToTop->options['icon_container_selector']; ?>").prepend('<a id="top"></a>\n<a href="#top" id="gototop" class="gototop">Top of page</a>');
 
 <?php if( $ScrollToTop->options['enable_scroll_event'] ) : ?>
       fade();
@@ -35,7 +35,7 @@ header('Content-Type: text/javascript');
 <?php endif; ?>
 
 <?php if( !$ScrollToTop->options['enabled_scroll_event'] ) : ?>
-      $("#gototop").fadeTo(0,translucent);
+      $("#gototop").fadeTo(0, translucent);
 <?php endif; ?>
 
       $("#gototop").click(function() {
@@ -48,11 +48,11 @@ header('Content-Type: text/javascript');
 
       $("#gototop").mouseover(function() {
          if(isTransitioned) {
-            $(this).fadeTo("slow",opaque);
+            $(this).fadeTo("slow", opaque);
          }
       }).mouseout(function() {
          if(isTransitioned) {
-            $(this).fadeTo("slow",translucent);
+            $(this).fadeTo("slow", translucent);
          }
       });
    });
