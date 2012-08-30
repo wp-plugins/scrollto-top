@@ -12,12 +12,12 @@ header('Content-Type: text/javascript');
    var fade = function() {
       if(isTransitioned) {
          isTransitioned = false;
-         if(<?php print $ScrollToTop->options['scroll_event_location']; ?> < $(document).scrollTop()) {
-            $("#gototop").show().fadeTo("slow", translucent, function() {
+         if(<?php echo $ScrollToTop->options['scroll_event_location']; ?> < $(document).scrollTop()) {
+            $("#stt-gototop-0").show().fadeTo("slow", translucent, function() {
                isTransitioned = true;
             });
          } else {
-            $("#gototop").fadeTo("slow", transparent, function() {
+            $("#stt-gototop-0").fadeTo("slow", transparent, function() {
                isTransitioned = true;
                $(this).hide();
             });
@@ -27,7 +27,19 @@ header('Content-Type: text/javascript');
 <?php endif; ?>
 
    $(function() {
-      $("<?php echo $ScrollToTop->options['icon_container_selector']; ?>").prepend('<a id="top"></a>\n<a href="#top" id="gototop" class="gototop">Top of page</a>');
+      $("<?php echo $ScrollToTop->options['icon_container_selector']; ?>").each(function(i) {
+         $(this).prepend('<a id="stt-top-' + i + '" class="stt-top">Top</a>\n<a href="#stt-top-' + i + '" id="stt-gototop-' + i + '" class="stt-gototop">Top of page</a>');
+      });
+
+      $(".stt-gototop").click(function() {
+         $.scrollTo($($(this).attr('href')), <?php echo $ScrollToTop->options['scroll_speed']; ?>);
+
+<?php if( $ScrollToTop->options['icon_container_selector'] === 'body' && !$ScrollToTop->options['enabled_scroll_event'] ) : ?>
+         $(this).fadeOut();
+<?php endif; ?>
+
+         return false;
+      });
 
 <?php if( $ScrollToTop->options['enable_scroll_event'] ) : ?>
       fade();
@@ -35,18 +47,10 @@ header('Content-Type: text/javascript');
 <?php endif; ?>
 
 <?php if( !$ScrollToTop->options['enabled_scroll_event'] ) : ?>
-      $("#gototop").fadeTo(0, translucent);
+      $(".stt-gototop").fadeTo(0, translucent);
 <?php endif; ?>
 
-      $("#gototop").click(function() {
-         $.scrollTo(0, <?php print $ScrollToTop->options['scroll_speed']; ?>);
-<?php if( $ScrollToTop->options['enable_scroll_event'] ) : ?>
-         $(this).fadeOut();
-<?php endif; ?>
-         return false;
-      });
-
-      $("#gototop").mouseover(function() {
+      $(".stt-gototop").mouseover(function() {
          if(isTransitioned) {
             $(this).fadeTo("slow", opaque);
          }

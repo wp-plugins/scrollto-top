@@ -3,7 +3,7 @@
 Plugin Name: ScrollTo Top
 Plugin URI: http://www.danielimhoff.com/wordpress-plugins/scrollto-top/
 Description: Uses the jQuery plugin ScrollTo by Ariel Flesler to smoothly scroll the user's browser to the top of the page when the user clicks the unobtrusive go-to-top image.
-Version: 1.1.2
+Version: 1.2
 Author: Daniel Imhoff
 Author URI: http://www.danielimhoff.com/
 License: GPL2
@@ -47,7 +47,7 @@ if ( !defined( 'WP_PLUGIN_DIR' ) ) {
    define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
 }
 
-define( 'STT_VERSION', '1.1.2' );
+define( 'STT_VERSION', '1.2' );
 
 // Did some nub rename the folder? 
 define( 'STT_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -189,7 +189,7 @@ if( !class_exists( 'ScrollToTop' ) ) {
          if( !is_admin() && substr($_SERVER['REQUEST_URI'], 1, 3) != 'wp-' ) {
             wp_enqueue_style( 'scrollto-top', STT_PLUGIN_URL . '/css/scrollto-top-css.php' );
             wp_enqueue_script( 'jquery' );
-            wp_enqueue_script( 'scrollTo', STT_PLUGIN_URL . '/js/jquery.scrollTo-1.4.2-min.js', array('jquery'), '1.4.2' );
+            wp_enqueue_script( 'scrollTo', STT_PLUGIN_URL . '/js/jquery.scrollTo-1.4.3-min.js', array('jquery'), '1.4.3' );
             wp_enqueue_script( 'scrollto-top', STT_PLUGIN_URL . '/js/scrollto-top.js.php', array('jquery', 'scrollTo'), STT_VERSION );
          }
 

@@ -2,7 +2,13 @@
 require( '../../../../wp-load.php' );
 header('Content-Type: text/css');
 ?>
-#gototop {
+.stt-top { /* One of these will hide it without using display:none =P */
+   display:block;
+   text-indent:-9999em;
+   font-size:0;
+   visibility:hidden;
+}
+.stt-gototop {
    position:<?php echo $ScrollToTop->options['icon_container_selector'] === 'body' ? 'fixed' : 'absolute'; ?>;
    z-index:5000;
    <?php echo $ScrollToTop->options['location_y'] . ':' . $ScrollToTop->options['location_y_amt']; ?>px;
@@ -15,8 +21,8 @@ header('Content-Type: text/css');
    display:none;
    <?php endif; ?>
 }
-#gototop:hover,
-#gototop:active,
-#gototop:focus {
+.stt-gototop:hover,
+.stt-gototop:active,
+.stt-gototop:focus {
    outline:0;
 }
