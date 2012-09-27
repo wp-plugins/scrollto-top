@@ -29,9 +29,11 @@ Looking for a ScrollTo Bottom plugin? Check out the [sister plugin](http://wordp
 
 == Changelog ==
 
+= 1.2.1 =
+* Fixed small CSS issue with some sites that created a white bar.
+
 = 1.2 =
 * Upgrading scrollTo to 1.4.3
-* Reworking plugin to work with localScroll
 
 = 1.1.2 =
 * Added option for specifying the icon's container element.

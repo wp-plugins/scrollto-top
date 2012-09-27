@@ -6,6 +6,8 @@ header('Content-Type: text/css');
    display:block;
    text-indent:-9999em;
    font-size:0;
+   line-height:0;
+   height:0;
    visibility:hidden;
 }
 .stt-gototop {
