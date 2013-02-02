@@ -3,8 +3,8 @@ Contributors: dwieeb
 Donate link: http://www.danielimhoff.com/donations/
 Tags: scrollto, scroll, go to top, top of page, dwieeb
 Requires at least: 3.0.0
-Tested up to: 3.4.1
-Stable tag: 1.2
+Tested up to: 3.5.1
+Stable tag: 1.2.2
 
 Uses the jQuery plugin ScrollTo by Ariel Flesler to smoothly scroll the user's browser to the top of the page when the user clicks the image.
 
@@ -12,7 +12,7 @@ Uses the jQuery plugin ScrollTo by Ariel Flesler to smoothly scroll the user's b
 
 This plugin will display an icon in a corner of the page that, when clicked, will smoothly scroll the user's browser to the top of the page. The plugin comes with options such as which corner the icon should appear in, the distance from the corner, and which icon to use (you can also upload your own). Also, you can turn on the document scroll event to fade the icon in and out when the user scrolls far enough down the page and up again. 
 
-Please note* This plugin will not display the icon in many mobile browsers due to their complete lack of support for position:fixed;
+Please note* This plugin may not display the icon in many mobile browsers due to some lack of support for position: fixed;
 
 Looking for a ScrollTo Bottom plugin? Check out the [sister plugin](http://wordpress.org/extend/plugins/scrollto-bottom/).
 
@@ -28,6 +28,9 @@ Looking for a ScrollTo Bottom plugin? Check out the [sister plugin](http://wordp
 1. This is the plugin options page for ScrollTo Top.
 
 == Changelog ==
+
+= 1.2.2 =
+* Fixed disappearing bug if scroll event is turned off. Thanks jasonpaulweber!
 
 = 1.2.1 =
 * Fixed small CSS issue with some sites that created a white bar.

@@ -3,10 +3,10 @@ require( '../../../../wp-load.php' );
 header('Content-Type: text/javascript');
 ?>
 (function($) {
-   var isTransitioned = true;
-   var transparent = 0;
-   var translucent = 0.3;
-   var opaque = 1;
+   var isTransitioned = true,
+       transparent = 0,
+       translucent = 0.3,
+       opaque = 1;
 
 <?php if( $ScrollToTop->options['enable_scroll_event'] ) : ?>
    var fade = function() {
@@ -34,7 +34,7 @@ header('Content-Type: text/javascript');
       $(".stt-gototop").click(function() {
          $.scrollTo($($(this).attr('href')), <?php echo $ScrollToTop->options['scroll_speed']; ?>);
 
-<?php if( $ScrollToTop->options['icon_container_selector'] === 'body' && !$ScrollToTop->options['enabled_scroll_event'] ) : ?>
+<?php if( $ScrollToTop->options['icon_container_selector'] === 'body' && $ScrollToTop->options['enable_scroll_event'] ) : ?>
          $(this).fadeOut();
 <?php endif; ?>
 
